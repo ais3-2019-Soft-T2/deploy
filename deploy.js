@@ -14,8 +14,8 @@ if (process.argc < 3) {
 }
 
 const _params = process.argv[2];
-const raw = fs.readFileSync(payload);
-const params = JSON.parse(payload);
+const raw = fs.readFileSync(_params);
+const params = JSON.parse(raw);
 
 // 1. deploy contract
 // generate digital signature
