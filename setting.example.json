@@ -1,0 +1,10 @@
+{
+    "firmware_name": "name",
+    "firmware": "firmware_file_name",
+    "account": "wallet_alias",
+    "amonut": "0",
+    "account_addr": "",
+
+    "prevVer": "if_it_has_previous_version",
+    "url": "url"
+}

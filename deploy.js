@@ -9,6 +9,7 @@ const tezos_addr = "node2.sg.tezos.org.sg";
 
 if (process.argc < 3) {
     console.error('Too few arguments/');
+    console.error('./deploy.js setting.json');
     return -1;
 }
 
@@ -34,13 +35,13 @@ const sig = sign.sign(privateKey, 'hex');
 // if it's the first version of the firmware. (check by firmware_name, I think it's a unique identity)
 if (fs.existsSync(server_folder + params.firmware_name)) {
     // deploy a new root contract
-    const root_contract_name = "firmware_root.liq";
+    const root_contract_name = "contract/firmware_root.liq";
     payload +=
          `running ${root_contract_name}` +
          `--init '(${params.account_addr}, "0.0.0", "", ${params.firmware_name}, ${sig})'`
 } else {
     // deploy a new version
-    const contract_name = "firmware.liq";
+    const contract_name = "contract/firmware.liq";
     payload +=
          `running ${contract_name}` +
          `--init '(${params.account_addr}, "0.0.0", ${params.prevVer}, ${params.url}, ${sig})'`
