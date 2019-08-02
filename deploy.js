@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const exec = require('child_process').exec;
 const fs   = require('fs');
+const crypto = require('crypto');
 
 // configuration
 const server_folder = '/var/www/html';
@@ -21,19 +22,28 @@ let payload =
      `for ${params.account}` +
      `tranferring ${params.amount}` +
      `from ${params.account}`;
+
+// generate digital signature
+const { privateKey, publicKey } = crypto.generateKeyPairSync('ec', {
+      namedCurve: 'sect239k1'
+});
+const sign = crypto.createSign('SHA256');
+sign.write(fs.readFileSync(params.firmware)).end();
+const sig = sign.sign(privateKey, 'hex');
+
 // if it's the first version of the firmware. (check by firmware_name, I think it's a unique identity)
 if (fs.existsSync(server_folder + params.firmware_name)) {
     // deploy a new root contract
     const root_contract_name = "firmware_root.liq";
     payload +=
          `running ${root_contract_name}` +
-         `--init '(${params.account_addr}, "0.0.0", "", ${params.firmware_name})'`
+         `--init '(${params.account_addr}, "0.0.0", "", ${params.firmware_name}, ${sig})'`
 } else {
     // deploy a new version
     const contract_name = "firmware.liq";
     payload +=
          `running ${contract_name}` +
-         `--init '(${params.account_addr}, "0.0.0", ${params.prevVer}, ${params.url})'`
+         `--init '(${params.account_addr}, "0.0.0", ${params.prevVer}, ${params.url}, ${sig})'`
 }
 
 exec(payload);
