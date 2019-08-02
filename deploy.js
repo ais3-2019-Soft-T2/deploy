@@ -4,7 +4,7 @@ const fs   = require('fs');
 const crypto = require('crypto');
 
 // configuration
-const server_folder = '/var/www/html';
+const server_folder = '/vol/server_files';
 const tezos_addr = "node2.sg.tezos.org.sg";
 
 if (process.argc < 3) {
@@ -41,7 +41,7 @@ const deployNew = (prev) => {
 };
 
 // if it's the first version of the firmware. (check by firmware_name, I think it's a unique identity)
-if (fs.existsSync(server_folder + params.firmware_name)) {
+if (fs.existsSync(server_folder + '/' +  params.firmware_name)) {
     const root_contract_name = "contract/firmware_root.liq";
     const payload =
          `tezos-client -A ${tezos_addr}` +
