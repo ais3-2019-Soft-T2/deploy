@@ -2,6 +2,9 @@
 const exec = require('child_process').exec;
 const fs   = require('fs');
 const crypto = require('crypto');
+const dbg = (s) => {
+  console.info("[Info]" + s);
+};
 
 // configuration
 const server_folder = '/vol/server_files';
@@ -20,10 +23,23 @@ const params = JSON.parse(raw);
 // 1. deploy contract
 // generate digital signature
 const { privateKey, publicKey } = crypto.generateKeyPairSync('ec', {
-      namedCurve: 'sect239k1'
+    namedCurve: 'sect239k1',
+    publicKeyEncoding: {
+        type: 'spki',
+        format: 'pem'
+    },
+    privateKeyEncoding: {
+        type: 'pkcs8',
+        format: 'pem'
+    }
+
 });
+dbg(` public key\n${publicKey}`);
+dbg(` private key\n${privateKey}`);
+
 const sign = crypto.createSign('SHA256');
-sign.write(fs.readFileSync(params.firmware)).end();
+sign.write(fs.readFileSync(params.firmware));
+sign.end();
 const sig = sign.sign(privateKey, 'hex');
 
 const deployNew = (prev) => {

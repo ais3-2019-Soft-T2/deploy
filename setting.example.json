@@ -1,10 +1,7 @@
 {
     "firmware_name": "name",
-    "firmware": "firmware_file_name",
-    "account": "wallet_alias",
+    "firmware": "firmware.bin",
+    "account": "bob",
     "amonut": "0",
-    "account_addr": "",
-
-    "prevVer": "if_it_has_previous_version",
-    "url": "url"
+    "account_addr": "tz1aobWpEZ8MvA4uopVBXdpneRTHHTv6wWB4"
 }
