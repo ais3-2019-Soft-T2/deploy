@@ -49,4 +49,4 @@ if (fs.existsSync(server_folder + params.firmware_name)) {
 exec(payload);
 
 // 2. move firmware files to file server folder.
-exec(`mv ${params.firmware} ${server_folder}/${params.firmware_name/`);
+exec(`mv ${params.firmware} ${server_folder}/${params.firmware_name/}`);
