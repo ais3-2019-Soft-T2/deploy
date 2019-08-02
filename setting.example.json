@@ -1,7 +1,10 @@
 {
     "firmware_name": "name",
     "firmware": "firmware.bin",
+    "version": "0.0.0",
     "account": "bob",
-    "amonut": "0",
-    "account_addr": "tz1aobWpEZ8MvA4uopVBXdpneRTHHTv6wWB4"
+    "amount": "0",
+    "account_addr": "tz1aobWpEZ8MvA4uopVBXdpneRTHHTv6wWB4",
+    "prevAddr": "tz1aobWpEZ8MvA4uopVBXdpneRTHHTv6wWB4",
+    "url": "https://ais3.wasay.app"
 }
