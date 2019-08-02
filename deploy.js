@@ -36,7 +36,7 @@ const deployNew = (prev) => {
          `tranferring ${params.amount}` +
          `from ${params.account}` +
          `running ${contract_name}` +
-         `--init '(${params.account_addr}, "0.0.0", ${prev}, ${params.url}, ${sig})'`
+         `--init '(Pair "${params.account_addr}" (Pair "0.0.0" (Pair "${prev}" (Pair "${params.url}" "${sig}"))))'`
     exec(payload);
 };
 
@@ -49,7 +49,7 @@ if (fs.existsSync(server_folder + '/' +  params.firmware_name)) {
          `tranferring ${params.amount}` +
          `from ${params.account}` +
          `running ${root_contract_name}` +
-         `--init '(${params.account_addr}, "0.0.0", "", ${params.firmware_name}, ${sig})'`;
+         `--init '(Pair "${params.account_addr}" (Pair "0.0.0" (Pair "" (Pair "${params.firmware_name}" "${sig}"))))'`;
     exec(payload, () => {
         deployNew();
     });
